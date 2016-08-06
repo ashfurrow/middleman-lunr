@@ -7,7 +7,7 @@ module Middleman::Lunr
       @extension = extension
     end
 
-    def generate(options)
+    def generate(opt_out, options)
       docs = []
       fields = []
       map = {}
@@ -21,7 +21,7 @@ module Middleman::Lunr
       end
 
       @extension.sitemap.resources.each do |res|
-        if res.data[:index]
+        if !opt_out || (opt_out && res.data[:index])
           doc = { id: res.url.to_s }
           key = res.url.to_s
           data = {}
